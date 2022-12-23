@@ -110,6 +110,7 @@ enum EventType
     VideoMessage,
     Redacted,
     UnknownMessage,
+    UnknownMessageWithTextBody,
     KeyVerificationRequest,
     KeyVerificationStart,
     KeyVerificationMac,

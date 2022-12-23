@@ -49,6 +49,12 @@ struct RoomEventType
     {
         return qml_mtx_events::toRoomEventType(e.type);
     }
+    qml_mtx_events::EventType operator()(const mtx::events::Event<mtx::events::Unknown> &e)
+    {
+        if (nlohmann::json::parse(e.content.content).contains("body"))
+            return qml_mtx_events::EventType::UnknownMessageWithTextBody;
+        return qml_mtx_events::EventType::UnknownMessage;
+    }
     qml_mtx_events::EventType operator()(const mtx::events::Event<mtx::events::msg::Audio> &)
     {
         return qml_mtx_events::EventType::AudioMessage;

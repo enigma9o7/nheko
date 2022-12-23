@@ -95,6 +95,12 @@ struct EventBody
             return e.content.body;
         return "";
     }
+    std::string operator()(const mtx::events::Event<mtx::events::Unknown> &e)
+    {
+        if (auto j = nlohmann::json::parse(e.content.content); j.contains("body"))
+            return j["body"];
+        return {};
+    }
 };
 
 struct EventFormattedBody
@@ -107,6 +113,12 @@ struct EventFormattedBody
                 return e.content.formatted_body;
         }
         return "";
+    }
+    std::string operator()(const mtx::events::Event<mtx::events::Unknown> &e)
+    {
+        if (auto j = nlohmann::json::parse(e.content.content); j.contains("formatted_body"))
+            return j["formatted_body"];
+        return {};
     }
 };
 

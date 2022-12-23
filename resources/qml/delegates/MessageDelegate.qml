@@ -54,11 +54,10 @@ Item {
         DelegateChoice {
             roleValue: MtxEvent.UnknownMessage
 
-            Placeholder {
-                typeString: d.typeString
-                text: "Unretrieved event"
+            Pill {
+                text: qsTr("%1 sent a message with type <code>%2</code").arg(d.userName).arg(d.typeString);
+                isStateEvent: d.isStateEvent
             }
-
         }
 
         DelegateChoice {
@@ -86,6 +85,20 @@ Item {
                 }
 
             }
+        }
+
+        DelegateChoice {
+            roleValue: MtxEvent.UnknownMessageWithTextBody
+
+            TextMessage {
+                formatted: d.formattedBody
+                body: d.body
+                isOnlyEmoji: d.isOnlyEmoji
+                isReply: d.isReply
+                keepFullText: d.keepFullText
+                metadataWidth: d.metadataWidth
+            }
+
         }
 
         DelegateChoice {
